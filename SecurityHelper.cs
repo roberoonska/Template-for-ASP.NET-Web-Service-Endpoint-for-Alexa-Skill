@@ -140,11 +140,14 @@ namespace TideAPI
             return collection.ToArray();
         }
         
-        public static async Task ValidateRequestSecurity(HttpRequestMessage Request, SkillRequest skillRequest)
+        
+        public static async Task<bool> ValidateRequestSecurity(HttpRequestMessage Request, SkillRequest skillRequest)
         {
+            bool isValidated = true;
 
             if (skillRequest == null || skillRequest.Request == null || skillRequest.Request.Timestamp == null)
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: Request Timestamp Missing");
             }
 
@@ -153,6 +156,7 @@ namespace TideAPI
 
             if (System.Math.Abs(tsDiff) >= 150)
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: Request Timestamp outside valid range");
             }
 
@@ -164,11 +168,13 @@ namespace TideAPI
 
             if (string.IsNullOrEmpty(certChainUrl))
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: missing SignatureCertChainUrl header");
             }
 
             if (string.IsNullOrEmpty(signature))
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: missing Signature header");
             }
 
@@ -176,21 +182,25 @@ namespace TideAPI
 
             if (uri.Scheme.ToLower() != "https")
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl bad scheme");
             }
 
             if (uri.Port != 443)
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl bad port");
             }
 
             if (uri.Host.ToLower() != "s3.amazonaws.com")
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl bad host");
             }
 
             if (!uri.AbsolutePath.StartsWith("/echo.api/"))
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl bad path");
             }
 
@@ -214,6 +224,7 @@ namespace TideAPI
 
                 if (!subjectAlternativeNameList.Contains("echo-api.amazon.com"))
                 {
+                    isValidated = false;
                     throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl certificate missing echo-api.amazon.com from Subject Alternative Names");
                 }
 
@@ -226,6 +237,7 @@ namespace TideAPI
 
                 if (!ValidateCertificateChain(primaryCert, chainCerts))
                 {
+                    isValidated = false;
                     throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl certificate chain validation failed");
                 }
                 
@@ -251,6 +263,7 @@ namespace TideAPI
 
             if (signingCertificate == null)
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: SignatureCertChainUrl certificate generic failure");
             }
 
@@ -281,8 +294,11 @@ namespace TideAPI
             //compare the hashs of the signature and the requestBody
             if (!thing.VerifyData(requestBytes, signatureBytes, System.Security.Cryptography.HashAlgorithmName.SHA1, System.Security.Cryptography.RSASignaturePadding.Pkcs1))
             {
+                isValidated = false;
                 throw new InvalidOperationException("Alexa Request Invalid: Signature verification failed");
             }
+
+            return isValidated;
         }
     }
 }
