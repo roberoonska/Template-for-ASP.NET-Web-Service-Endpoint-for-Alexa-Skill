@@ -1,4 +1,4 @@
-# Example-C-Sharp-Web-Service-Endpoint-for-Alexa-Skill
+# Template for ASP.NET Web Service Endpoint for Alexa Skill
 This is a template for a a custom web service endpoint for an Alexa Skill using ASP.NET.
 
 It uses the nu-get package [Alexa.NET](https://github.com/timheuer/alexa-skills-dotnet) to handle the requests sent by Amazon Alexa.
