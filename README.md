@@ -9,5 +9,5 @@ It also handles the security requirements imposed by amazon including validating
 
 ## Setup
 1. Add [Alexa.NET](https://github.com/timheuer/alexa-skills-dotnet) to your project.
-2. Add [DefaultController.cs](https://github.com/roberoonska/Template-for-ASP.NET-Web-Service-Endpoint-for-Alexa-Skill/blob/master/ExampleController.cs) to your project under 'Controllers'; you can rename it to whatever you please.
-3. Add [SecurityHelper.cs](https://github.com/roberoonska/Template-for-ASP.NET-Web-Service-Endpoint-for-Alexa-Skill/blob/master/SecurityHelper.cs) to your project. Remember to change the skill ID to your skill's ID found in the amazon developer portal.
+2. Add [ExampleController.cs](/ExampleController.cs) to your project under 'Controllers'; you can rename it to whatever you please.
+3. Add [SecurityHelper.cs](/SecurityHelper.cs) to your project. Remember to change the skill ID to your skill's ID found in the amazon developer portal.
