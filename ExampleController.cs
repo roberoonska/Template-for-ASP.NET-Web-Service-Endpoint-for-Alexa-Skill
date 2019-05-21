@@ -15,11 +15,12 @@ namespace YOURPROJECTNAME.Controllers
         public async Task<Object> AlexaResponseAsync(SkillRequest skillRequest)
         {
             SkillResponse response = new SkillResponse();
-	    int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
+	        int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
+	    
             if (securityCode == 1) //request not validated
                 return BadRequest();
             else if (securityCode == 2) //request ID doesn't match
-	    	return new SkillResponse() { Response =  new ResponseBody() { ShouldEndSession = true }};
+	    	    return new SkillResponse() { Response =  new ResponseBody() { ShouldEndSession = true }};
             else
                 return RequestHandler(skillRequest);
         }
@@ -56,21 +57,27 @@ namespace YOURPROJECTNAME.Controllers
                 case "YOUR CUSTOM INTENT NAME":
                     //YOUR CUSTOM INTENT CODE HERE
                     break;
-                case "YOUR CUSTOM INTENT NAME 2":
+		    
+                case "ANOTHER CUSTOM INTENT NAME":
                     //YOUR CUSTOM INTENT CODE HERE
-                    break;							
+                    break;	
+		    
 		case "AMAZON.HelpIntent":
                     response = ResponseBuilder.Ask("YOUR RESPONSE TEXT HERE", new Reprompt("YOUR REPROMPT TEXT HERE"));
                     break;
+		    
                 case "AMAZON.CancelIntent":
                     response.Response = new ResponseBody() { ShouldEndSession = true };
                     break;
+		    
                 case "AMAZON.StopIntent":
                     response.Response = new ResponseBody() { ShouldEndSession = true };
                     break;
+		    
                 case "AMAZON.NavigateHomeIntent":
                     response.Response = new ResponseBody() { ShouldEndSession = true };
                     break;
+		    
                 case "AMAZON.FallBackIntent":
                     response = ResponseBuilder.Tell("I did not understand that. Please try again.");
                     break;	
@@ -82,14 +89,15 @@ namespace YOURPROJECTNAME.Controllers
 	
     public class IntentData
    	{
-	private IntentRequest IntentRequest { get; set; }
+	    private IntentRequest IntentRequest { get; set; }
         public string IntentName { get; set; }
-	//YOUR INTENT DATA PARAMETERS HERE
+	    //YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
         {
             IntentRequest = SkillRequest.Request as IntentRequest;
             IntentName = IntentRequest.Intent.Name;
+	        //SET YOUR INTENT DATA PARAMETERS HERE
         }
     }
 }
