@@ -7,7 +7,6 @@ using Alexa.NET.Request;
 using Alexa.NET.Response;
 
 
-
 namespace YOURPROJECTNAME.Controllers
 {
     public class YOURCONTROLLERNAME : ApiController
@@ -26,12 +25,7 @@ namespace YOURPROJECTNAME.Controllers
             return response;
         }
         
-				
-
-        /// <summary>
-        /// Returns a skillResponse given a skillRequest.
-        /// </summary>
-        /// <param name="skillRequest"></param>
+	
         public static SkillResponse RequestHandler(SkillRequest skillRequest)
         {
             SkillResponse response = new SkillResponse();
@@ -54,11 +48,6 @@ namespace YOURPROJECTNAME.Controllers
         }
 
 
-
-        /// <summary>
-        /// Returns a skillResponse given an intentRequest.
-        /// </summary>
-        /// <param name="skillRequest"></param>
         public static SkillResponse IntentRequestHandler(SkillRequest skillRequest,  MessLog mess)
         {
             SkillResponse response = new SkillResponse();
@@ -71,7 +60,7 @@ namespace YOURPROJECTNAME.Controllers
                 case "YOURCUSTOMINTENTNAME2":
                     //YOUR CUSTOM INTENT CODE HERE
                     break;							
-		        case "AMAZON.HelpIntent":
+		case "AMAZON.HelpIntent":
                     response = ResponseBuilder.Ask("RESPONSE TEXT HERE", new Reprompt("REPROMPT TEXT HERE"));
                     break;
                 case "AMAZON.CancelIntent":
@@ -90,22 +79,20 @@ namespace YOURPROJECTNAME.Controllers
             return response;
         }
     }
-		
-		
-		
+	
+	
     public class IntentData
    	{
         public string IntentName { get; set; }
         private SkillRequest SkillRequest { get; set; }
         private IntentRequest IntentRequest { get; set; }
-	    //YOUR INTENT DATA PARAMETERS HERE
+	//YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
         {
             SkillRequest = skillRequest;
             IntentRequest = SkillRequest.Request as IntentRequest;
             IntentName = IntentRequest.Intent.Name;
-            
         }
     }
 }
