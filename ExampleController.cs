@@ -15,14 +15,13 @@ namespace YOURPROJECTNAME.Controllers
         public async Task<Object> AlexaResponseAsync(SkillRequest skillRequest)
         {
             SkillResponse response = new SkillResponse();
-            int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
+	    int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
             if (securityCode == 1) //request not validated
                 return BadRequest();
             else if (securityCode == 2) //request ID doesn't match
-                response.Response = new ResponseBody() { ShouldEndSession = true };
+	    	return new SkillResponse() { Response =  new ResponseBody() { ShouldEndSession = true }};
             else
-                response = RequestHandler(skillRequest);
-            return response;
+                return RequestHandler(skillRequest);
         }
         
 	
@@ -32,7 +31,7 @@ namespace YOURPROJECTNAME.Controllers
             switch (skillRequest.Request.Type)
             {
                 case "LaunchRequest":
-                    response = ResponseBuilder.Ask("RESPONSE TEXT HERE", new Reprompt("REPROMPT TEXT HERE"));
+                    response = ResponseBuilder.Ask("YOUR RESPONSE TEXT HERE", new Reprompt("YOUR REPROMPT TEXT HERE"));
                     break;
 
                 case "SessionEndedRequest":
@@ -41,27 +40,27 @@ namespace YOURPROJECTNAME.Controllers
                     break;
 
                 case "IntentRequest":
-                    response = IntentRequestHandler(skillRequest, mess);
+                    response = IntentRequestHandler(skillRequest);
                     break;
             }
             return response;
         }
 
 
-        public static SkillResponse IntentRequestHandler(SkillRequest skillRequest,  MessLog mess)
+        public static SkillResponse IntentRequestHandler(SkillRequest skillRequest)
         {
             SkillResponse response = new SkillResponse();
-            IntentData intentData = new IntentData(skillRequest, mess);
+            IntentData intentData = new IntentData(skillRequest);
             switch (intentData.IntentName)
             {
-                case "YOURCUSTOMINTENTNAME1":
+                case "YOUR CUSTOM INTENT NAME":
                     //YOUR CUSTOM INTENT CODE HERE
                     break;
-                case "YOURCUSTOMINTENTNAME2":
+                case "YOUR CUSTOM INTENT NAME 2":
                     //YOUR CUSTOM INTENT CODE HERE
                     break;							
 		case "AMAZON.HelpIntent":
-                    response = ResponseBuilder.Ask("RESPONSE TEXT HERE", new Reprompt("REPROMPT TEXT HERE"));
+                    response = ResponseBuilder.Ask("YOUR RESPONSE TEXT HERE", new Reprompt("YOUR REPROMPT TEXT HERE"));
                     break;
                 case "AMAZON.CancelIntent":
                     response.Response = new ResponseBody() { ShouldEndSession = true };
@@ -83,14 +82,12 @@ namespace YOURPROJECTNAME.Controllers
 	
     public class IntentData
    	{
+	private IntentRequest IntentRequest { get; set; }
         public string IntentName { get; set; }
-        private SkillRequest SkillRequest { get; set; }
-        private IntentRequest IntentRequest { get; set; }
 	//YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
         {
-            SkillRequest = skillRequest;
             IntentRequest = SkillRequest.Request as IntentRequest;
             IntentName = IntentRequest.Intent.Name;
         }
