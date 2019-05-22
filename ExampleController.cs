@@ -15,12 +15,12 @@ namespace YOURPROJECTNAME.Controllers
         public async Task<Object> AlexaResponseAsync(SkillRequest skillRequest)
         {
             SkillResponse response = new SkillResponse();
-	        int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
+	    int securityCode = await SecurityHelper.SecurityHandler(Request, skillRequest);
 	    
             if (securityCode == 1) //request not validated
                 return BadRequest();
             else if (securityCode == 2) //request ID doesn't match
-	    	    return new SkillResponse() { Response =  new ResponseBody() { ShouldEndSession = true }};
+	    	return new SkillResponse() { Response =  new ResponseBody() { ShouldEndSession = true }};
             else
                 return RequestHandler(skillRequest);
         }
@@ -89,14 +89,14 @@ namespace YOURPROJECTNAME.Controllers
     public class IntentData
    	{
 	    private IntentRequest IntentRequest { get; set; }
-        public string IntentName { get; set; }
+            public string IntentName { get; set; }
 	    //YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
         {
             IntentRequest = skillRequest.Request as IntentRequest;
             IntentName = IntentRequest.Intent.Name;
-	        //SET YOUR INTENT DATA PARAMETERS HERE
+	    //SET YOUR INTENT DATA PARAMETERS HERE
         }
     }
 }
