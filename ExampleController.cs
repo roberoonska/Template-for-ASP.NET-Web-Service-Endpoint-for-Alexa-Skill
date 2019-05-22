@@ -36,8 +36,7 @@ namespace YOURPROJECTNAME.Controllers
                     break;
 
                 case "SessionEndedRequest":
-                    responseBody.ShouldEndSession = true;
-                    response.Response = responseBody;
+                    response.Response = new ResponseBody() { ShouldEndSession = true };
                     break;
 
                 case "IntentRequest":
