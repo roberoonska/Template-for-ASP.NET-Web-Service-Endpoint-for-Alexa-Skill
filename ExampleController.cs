@@ -90,7 +90,7 @@ namespace YOURPROJECTNAME.Controllers
     public class IntentData
    	{
 	    private IntentRequest IntentRequest { get; set; }
-            public string IntentName { get; set; }
+        public string IntentName { get; set; }
 	    //YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
