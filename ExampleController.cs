@@ -88,15 +88,34 @@ namespace YOURPROJECTNAME.Controllers
 	
     public class IntentData
    	{
+	    private SkillRequest SkillRequest { get; set; }
 	    private IntentRequest IntentRequest { get; set; }
             public string IntentName { get; set; }
+	    
+	    private string Host { get; set; }
+            private string AccessToken { get; set; }
+            private string DeviceID { get; set; }
+	    
 	    //YOUR INTENT DATA PARAMETERS HERE
 
         public IntentData(SkillRequest skillRequest)
         {
+	    SkillRequest = skillRequest;
             IntentRequest = skillRequest.Request as IntentRequest;
             IntentName = IntentRequest.Intent.Name;
-	    //SET YOUR INTENT DATA PARAMETERS HERE
         }
+	
+	public void SetAPIAccessInfo()
+        {
+            Host = SkillRequest.Context.System.ApiEndpoint;
+            AccessToken = SkillRequest.Context.System.ApiAccessToken;
+            DeviceID = SkillRequest.Context.System.Device.DeviceID;
+        }
+	    
+	public void YOURMETHOD()
+	{
+	    //SET YOUR INTENT DATA PARAMETERS HERE
+	}
+	    
     }
 }
