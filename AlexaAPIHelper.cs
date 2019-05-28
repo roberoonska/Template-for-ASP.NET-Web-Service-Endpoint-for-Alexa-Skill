@@ -4,13 +4,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Data;
-using System.Data.SqlClient;
-using NodaTime;
 using Newtonsoft.Json;
-using DMTServices;
-using TideAPI.Controllers;
-using Alexa.NET;
-using Alexa.NET.Response;
 
 namespace YOURNAMESPACE
 {
@@ -19,7 +13,7 @@ namespace YOURNAMESPACE
         private string Host { get; set; }
         private string AccessToken { get; set; }
         private string DeviceID { get; set; }
-        public enum RequestType {timeZone, distanceUnit, address}
+        public enum RequestType {timeZone, distanceUnit, temperatureUnit, address, fullName, givenName, emailAddress, phoneNumber}
 
         /// <summary>
         /// Creates an AlexaAPIHelper.
@@ -51,10 +45,26 @@ namespace YOURNAMESPACE
                 case RequestType.distanceUnit:
                     uriStr = string.Format("{0}/v2/devices/{1}/settings/System.distanceUnits", Host, DeviceID);
                     break;
+                case RequestType.temperatureUnit:
+                    uriStr = string.Format("{0}/v2/devices/{1}/settings/System.temperatureUnit", Host, DeviceID);
+                    break;
                 case RequestType.address:
                     uriStr = string.Format("{0}/v1/devices/{1}/settings/address",Host, DeviceID);
                     break;
+                case RequestType.fullName:
+                    uriStr = string.Format("{0}/v2/accounts/~current/settings/Profile.name",Host);
+                    break;
+                case RequestType.givenName:
+                    uriStr = string.Format("{0}/v2/accounts/~current/settings/Profile.givenName",Host);
+                    break;
+                case RequestType.emailAddress:
+                    uriStr = string.Format("{0}/v2/accounts/~current/settings/Profile.email",Host);
+                    break;
+                case RequestType.phoneNumber:
+                    uriStr = string.Format("{0}/v2/accounts/~current/settings/Profile.mobileNumber",Host);
+                    break;
             }
+            
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(uriStr);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Headers["Authorization"] = string.Format("Bearer {0}", AccessToken);
@@ -69,7 +79,7 @@ namespace YOURNAMESPACE
         /// </summary>
         /// <param name="request"></param>
         /// <param name="mess"></param>
-        public string GetResponse(HttpWebRequest request, MessLog mess)
+        public string GetResponse(HttpWebRequest request)
         {
             string jsonStr = string.Empty;
 
@@ -90,3 +100,6 @@ namespace YOURNAMESPACE
 
             return jsonStr;
         }
+    }
+}
+        
