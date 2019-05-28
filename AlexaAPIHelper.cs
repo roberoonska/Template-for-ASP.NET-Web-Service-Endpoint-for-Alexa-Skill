@@ -86,7 +86,7 @@ namespace YOURNAMESPACE
         /// <param name="mess"></param>
         public string GetResponse(HttpWebRequest request)
         {
-            string jsonStr = string.Empty;
+            string responseStr = string.Empty;
 
             try
             {
@@ -94,7 +94,7 @@ namespace YOURNAMESPACE
                 {
                     using (Stream stream = resp.GetResponseStream())
                     {
-                        jsonStr = new StreamReader(stream).ReadToEnd();
+                        responseStr = new StreamReader(stream).ReadToEnd();
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace YOURNAMESPACE
                 throw ex;
             }
 
-            return jsonStr;
+            return responseStr;
         }
      
         
