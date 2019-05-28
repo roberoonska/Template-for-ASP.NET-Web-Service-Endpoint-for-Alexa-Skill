@@ -113,7 +113,7 @@ namespace YOURNAMESPACE
         /// <param name="requestType"></param>
         public SkillResponse AskForPermission(RequestType requestType)
         {
-            SkillResponse response = new Skillresponse();
+            SkillResponse response = new SkillResponse();
             switch (requestType)
             {
                 case RequestType.address:
