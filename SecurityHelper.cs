@@ -14,7 +14,7 @@ using Alexa.NET.Request;
 using System.IO;
 
 
-namespace TideAPI
+namespace YOURNAMESPACE
 {
     public class SecurityHelper
     {
