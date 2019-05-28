@@ -73,6 +73,7 @@ namespace YOURNAMESPACE
             return httpWebRequest;
         }
 
+        
         /// <summary>
         /// Returns the response from a web request as a json string.
         /// If the request fails, returns an empty string.
@@ -100,6 +101,7 @@ namespace YOURNAMESPACE
 
             return jsonStr;
         }
+     
         
         /// <summary>
         /// Returns a skill response that tells the use to grant permissions, and sends an AskForPermissionConsentCard.
