@@ -117,23 +117,23 @@ namespace YOURNAMESPACE
             switch (requestType)
             {
                 case RequestType.address:
-                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST HERE" ,
+                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST TEXT HERE" ,
                         new List<string>() { "read::alexa:device:all:address" });
                     break;
                 case RequestType.fullName:
-                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST HERE" ,
+                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST TEXT HERE" ,
                         new List<string>() { "alexa::profile:name:read" });
                     break;
                 case RequestType.givenName:
-                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST HERE" ,
+                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST TEXT HERE" ,
                         new List<string>() { "alexa::profile:given_name:read" });
                     break;
                 case RequestType.emailAddress:
-                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST HERE" ,
+                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST TEXT HERE" ,
                         new List<string>() { "alexa::profile:email:read" });
                     break;
                 case RequestType.phoneNumber:
-                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST HERE" ,
+                    response = ResponseBuilder.TellWithAskForPermissionConsentCard("YOUR PERMISSION REQUEST TEXT HERE" ,
                         new List<string>() { "alexa::profile:mobile_number:read" });
                     break;
             }
