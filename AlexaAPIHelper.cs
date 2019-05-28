@@ -5,6 +5,10 @@ using System.Net;
 using System.IO;
 using System.Data;
 using Newtonsoft.Json;
+using Alexa.NET;
+using Alexa.NET.Request;
+using Alexa.NET.Request.Type;
+using Alexa.NET.Response;
 
 namespace YOURNAMESPACE
 {
